@@ -122,7 +122,7 @@ cmd open &{{
 
 cmd trash %set -f; mv $fx ~/.trash
 
-cmd extract ${{
+cmd extract %{{
     set -f
     case $f in
         *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
@@ -134,7 +134,7 @@ cmd extract ${{
     esac
 }}
 
-cmd tar ${{
+cmd tar %{{
     set -f
     printf "to tar.gz "
     read ans
@@ -144,7 +144,7 @@ cmd tar ${{
     rm -rf $ans
 }}
 
-cmd zip ${{
+cmd zip %{{
     set -f
     printf "to zip "
     read ans
