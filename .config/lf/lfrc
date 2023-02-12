@@ -1,0 +1,192 @@
+#=========================================#
+# 8b   d8           8    8888 888b. .d88b #
+# 8YbmdP8 Yb  dP    8    8www 8  .8 8P    #
+# 8  "  8  YbdP     8    8    8wwK' 8b    #
+# 8     8   dP      8888 8    8  Yb `Y88P #
+#          dP                             #
+#=========================================#
+
+# Basic Settings
+set shell zsh
+set shellopts '-euy'
+set ifs "\n"
+set filesep "\n"  # default already
+
+set scrolloff 10
+
+set hidden
+set ignorecase
+set icons
+set info size
+
+set previewer "~/.config/lf/preview"
+
+# Custom functions
+cmd bulk-rename ${{
+    old="$(mktemp)"
+    new="$(mktemp)"
+    if [ -n "$fs" ]; then
+        fs="$(basename -a $fs)"
+    else
+        fs="$(ls)"
+    fi
+    printf '%s\n' "$fs" >"$old"
+    printf '%s\n' "$fs" >"$new"
+    $EDITOR "$new"
+    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+    paste "$old" "$new" | while IFS= read -r names; do
+        src="$(printf '%s' "$names" | cut -f1)"
+        dst="$(printf '%s' "$names" | cut -f2)"
+        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+            continue
+        fi
+        mv -- "$src" "$dst"
+    done
+    rm -- "$old" "$new"
+    lf -remote "send $id unselect"
+}}
+
+cmd mkdir $mkdir -p "$(echo $* | tr ' ' '/ ')"
+
+#cmd mkdir ${{
+#  printf "Directory Name: "
+#  read ans
+#  mkdir -p $ans
+#}}
+
+cmd mkfile $$EDITOR "$(echo $*)"
+
+#cmd mkfile ${{
+#  printf "File Name: "
+#  read ans
+#  $EDITOR $ans
+#}}
+
+cmd yank_path ${{
+set -f
+readlink -f $f | xclip -selection clipboard
+}}
+
+cmd yank_name ${{
+set -f
+basename "$(readlink -f "$f")" | xclip -selection clipboard
+}}
+
+cmd yank_dir ${{
+set -f
+pwd -f $f | xclip -selection clipboard
+}}
+
+cmd paste-override &{{
+	set -f
+	load=$(lf -remote "load")
+	mode=$(echo "$load" | head -1)
+	list=$(echo "$load" | sed '1d')
+	set -- _ $list; shift
+	[ $# -gt 0 ] || exit
+	case $mode in
+		copy)
+			rsync -r "$@" ./
+			;;
+		move)
+			rsync -r --remove-source-files "$@" ./
+			;;
+	esac
+	lf -remote 'save\nmove\n'
+	lf -remote "send $id load"
+	lf -remote "send $id echo \"\033[0;32mpasted $# file(s)\033[0m\""
+}}
+
+cmd fzf_jump ${{
+    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    if [ -d "$res" ] ; then
+        cmd="cd"
+    elif [ -f "$res" ] ; then
+        cmd="select"
+    else
+        exit 0
+    fi
+    lf -remote "send $id $cmd \"$res\""
+}}
+
+cmd fzf_search ${{
+    res="$( \
+        RG_PREFIX="rg --column --line-number --no-heading --color=always \
+            --smart-case "
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
+}}
+
+cmd open &{{
+    case $(file --mime-type -Lb $f) in
+        text/*) lf -remote "send $id \$$EDITOR \$fx";;
+        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac
+}}
+
+cmd trash %set -f; mv $fx ~/.trash
+
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+cmd tar ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    tar czf $1.tar.gz $1
+    rm -rf $1
+}}
+
+cmd zip ${{
+    set -f
+    mkdir $1
+    cp -r $fx $1
+    zip -r $1.zip $1
+    rm -rf $1
+}}
+
+# Remove some defaults
+map m
+map y
+map p
+map e
+map d
+map r
+map f
+
+# Basic Functions
+map yy copy
+map yp yank_path
+map yn yank_name
+map yd yank_dir
+map dd cut
+map dD delete
+map pp paste
+map po paste-override
+map rf rename
+map ra bulk-rename
+map ff push :setfilter<space>
+map fj :fzf_jump
+map fr :fzf_search
+map ev $vim "$f"
+map en $nvim "$f"
+map ms mark-save
+map mf push :mkfile<space>
+map md push :mkdir<space>
+map <enter> shell
+map ae extract
+map aat tar
+map aaz zip
