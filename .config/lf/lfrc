@@ -77,24 +77,16 @@ set -f
 pwd -f $f | xclip -selection clipboard
 }}
 
-cmd paste-override &{{
-	set -f
-	load=$(lf -remote "load")
-	mode=$(echo "$load" | head -1)
-	list=$(echo "$load" | sed '1d')
-	set -- _ $list; shift
-	[ $# -gt 0 ] || exit
-	case $mode in
-		copy)
-			rsync -r "$@" ./
-			;;
-		move)
-			rsync -r --remove-source-files "$@" ./
-			;;
-	esac
-	lf -remote 'save\nmove\n'
-	lf -remote "send $id load"
-	lf -remote "send $id echo \"\033[0;32mpasted $# file(s)\033[0m\""
+cmd paste-overwrite %{{
+    mode=$(head -1 ~/.local/share/lf/files)
+    list=$(sed 1d ~/.local/share/lf/files)
+    if [ $mode = 'copy' ]; then
+        cp -r $list .
+    elif [ $mode = 'move' ]; then
+        mv $list .
+    fi
+    lf -remote 'send load'
+    lf -remote 'send clear'
 }}
 
 cmd fzf_jump ${{
@@ -144,18 +136,22 @@ cmd extract ${{
 
 cmd tar ${{
     set -f
-    mkdir $1
-    cp -r $fx $1
-    tar czf $1.tar.gz $1
-    rm -rf $1
+    printf "to tar.gz "
+    read ans
+    mkdir $ans
+    cp -r $fx $ans
+    tar czf $ans.tar.gz $ans
+    rm -rf $ans
 }}
 
 cmd zip ${{
     set -f
-    mkdir $1
-    cp -r $fx $1
-    zip -r $1.zip $1
-    rm -rf $1
+    printf "to zip "
+    read ans
+    mkdir $ans
+    cp -r $fx $ans
+    zip -r $ans.zip $ans
+    rm -rf $ans
 }}
 
 # Remove some defaults
@@ -166,6 +162,7 @@ map e
 map d
 map r
 map f
+map a
 
 # Basic Functions
 map yy copy
@@ -175,7 +172,7 @@ map yd yank_dir
 map dd cut
 map dD delete
 map pp paste
-map po paste-override
+map po paste-overwrite
 map rf rename
 map ra bulk-rename
 map ff push :setfilter<space>
@@ -188,5 +185,5 @@ map mf push :mkfile<space>
 map md push :mkdir<space>
 map <enter> shell
 map ae extract
-map aat tar
-map aaz zip
+map acg tar
+map acz zip

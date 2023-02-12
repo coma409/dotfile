@@ -163,11 +163,6 @@ inoremap { {}<ESC>i
 inoremap [ []<ESC>i
 inoremap < <><ESC>i
 
-""set LF as FileManager
-let g:lf_map_keys = 0
-let g:floaterm_width = 0.6
-let g:floaterm_height = 0.6
-
 nnoremap <LEADER>m :Lf<CR>
 
 call plug#begin('~/.vim/plugged')
@@ -207,6 +202,11 @@ colorscheme nightfly
 nnoremap <C-m> :MarkdownPreview<CR>
 nnoremap m :MarkdownPreviewStop<CR>
 "nnoremap <C-p> :MarkdownPreviewToggle<CR>
+
+""set LF as FileManager
+let g:lf_map_keys = 0
+let g:floaterm_width = 0.6
+let g:floaterm_height = 0.6
 
 ""UndotreeToggle set
 nnoremap <F5> :UndotreeToggle<CR>

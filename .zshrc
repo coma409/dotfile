@@ -22,13 +22,14 @@ source "$HOME/.config/zsh/.zsh_aliases"
 
 
 # User plugins
-zinit light zsh-users/zsh-completions
+zinit ice blockf
+zinit load zsh-users/zsh-completions
 
 zinit ice lucid wait='0' atload='_zsh_autosuggest_start'
-zinit light zsh-users/zsh-autosuggestions
+zinit load zsh-users/zsh-autosuggestions
 
 zinit ice lucid wait='0'
-zinit light zdharma/fast-syntax-highlighting
+zinit load zdharma/fast-syntax-highlighting
 
 zinit ice lucid wait='0'
 zinit snippet OMZ::lib/git.zsh
