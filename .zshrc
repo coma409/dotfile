@@ -22,19 +22,19 @@ source "$HOME/.config/zsh/.zsh_aliases"
 
 
 # User plugins
-zinit ice blockf
-zinit load zsh-users/zsh-completions
+zinit ice lucid wait='0'
+zinit light zsh-users/zsh-completions
 
 zinit ice lucid wait='0' atload='_zsh_autosuggest_start'
-zinit load zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-autosuggestions
 
 zinit ice lucid wait='0'
-zinit load zdharma/fast-syntax-highlighting
+zinit light zdharma/fast-syntax-highlighting
 
 zinit ice lucid wait='0'
 zinit snippet OMZ::lib/git.zsh
 
-zinit ice lucid wait='0'
+zinit ice lucid wait='0' atload="zpcompinit; zpcdreplay"
 zinit snippet OMZ::plugins/git/git.plugin.zsh
 
 autoload compinit; compinit; zinit cdreplay -q
