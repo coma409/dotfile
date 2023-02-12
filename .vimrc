@@ -104,10 +104,10 @@ nnoremap <LEADER>k <C-w>k
 nnoremap <LEADER>l <C-w>l
 
 ""improve hjkl
-nnoremap H <HOME>
+nnoremap H \|
 nnoremap J 5j
 nnoremap K 5k
-nnoremap L <END>
+nnoremap L $
 
 vnoremap H <HOME>
 vnoremap J 5j
@@ -166,8 +166,6 @@ inoremap < <><ESC>i
 nnoremap <LEADER>m :Lf<CR>
 
 call plug#begin('~/.vim/plugged')
-
-Plug 'cocopon/iceberg.vim'
 
 Plug 'bluz71/vim-nightfly-colors'
 
