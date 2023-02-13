@@ -57,12 +57,12 @@ set scrolloff=10
 set laststatus=2
 set autochdir
 ""set cursor styles different in different modes
-"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"let &t_SI = "\<Esc>[6 q"
+"let &t_SR = "\<Esc>[4 q"
+"let &t_EI = "\<Esc>[2 q"
 ""Save the cursor location for the file where you edit it last time
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -93,12 +93,14 @@ noremap <LEADER>rc :e ~/.vimrc<CR>
 noremap y "+y
 ""Paste from system clipboard
 noremap p "+p
+""align the line
+noremap <LEADER>a :Tab/
 
 ""resize window
-noremap <up> :res +5<CR>
-noremap <down> :res -5<CR>
-noremap <left> :vertical resize-5<CR>
-noremap <right> :vertical resize+5<CR>
+noremap <up>    : res +5<CR>
+noremap <down>  : res -5<CR>
+noremap <left>  : vertical resize-5<CR>
+noremap <right> : vertical resize+5<CR>
 
 ""disable the key 's'
 noremap s <nop>
@@ -159,12 +161,12 @@ function! Get_mode()
 	endif
 endfunction
 
-set statusline=%1*\[%{Get_mode()}]\ %*      "Show currntMode
-set statusline+=%2*\%<%.50F\                "Show file name and file path
-set statusline+=%=%3*\%y%m%r%h%w\ %*        "Show file type and file status
-set statusline+=%4*\%{&ff}\[%{&fenc}]\ %*   "Show file encoding type
-set statusline+=%5*\ row:%l/%L,col:%c\ %*   "Display the row and column where the cursor is located
-set statusline+=%6*\%3p%%\%*                "Display the proportion of the text in front of the cursor to the total text
+set statusline=%1*\[%{Get_mode()}]\ %*    " Show currntMode
+set statusline+=%2*\%<%.50F\              " Show file name and file path
+set statusline+=%=%3*\%y%m%r%h%w\ %*      " Show file type and file status
+set statusline+=%4*\%{&ff}\[%{&fenc}]\ %* " Show file encoding type
+set statusline+=%5*\ row:%l/%L,col:%c\ %* " Display the row and column where the cursor is located
+set statusline+=%6*\%3p%%\%*              " Display the proportion of the text in front of the cursor to the total text
 hi User1 cterm=none ctermfg=4 ctermbg=0
 hi User2 cterm=none ctermfg=25 ctermbg=0
 hi User3 cterm=none ctermfg=208 ctermbg=0
@@ -178,8 +180,7 @@ inoremap { {}<ESC>i
 inoremap [ []<ESC>i
 inoremap < <><ESC>i
 
-nnoremap <LEADER>m :Lf<CR>
-
+""vim-plug set
 call plug#begin('~/.vim/plugged')
 
 Plug 'bluz71/vim-nightfly-colors'
@@ -228,6 +229,7 @@ nnoremap m :MarkdownPreviewStop<CR>
 let g:lf_map_keys = 0
 let g:floaterm_width = 0.6
 let g:floaterm_height = 0.6
+nnoremap <LEADER>m :Lf<CR>
 
 ""UndotreeToggle set
 nnoremap <F5> :UndotreeToggle<CR>
