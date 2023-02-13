@@ -6,8 +6,11 @@
 "          dP                                        "
 "==================================================="
 
+""not compatible vi
 set nocompatible
 
+""set leader key
+let mapleader=" "
 let g:mapleader=" "
 
 let &t_ut=''
@@ -35,16 +38,21 @@ set ignorecase
 set smartcase
 ""mouse set
 set mouse=a
+""encoding set
 set encoding=utf-8
+""indent set
 set autoindent
 set smartindent
+""tab set
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+""display <Tab> & <Space>
 set list
 set listchars=tab:▸\ ,trail:▫
-set scrolloff=5
+""set scroll retain
+set scrolloff=10
 ""set statusline location
 set laststatus=2
 set autochdir
@@ -69,13 +77,17 @@ nnoremap r :source $MYVIMRC<CR>
 ""cancel search highlight
 nnoremap <CR> :nohlsearch<CR>
 
-""selet to home
+""select Visual-Block to line home
 noremap <C-h> <C-v><HOME>
-""selet to end
+""select Visual-Block to line end
 noremap <C-l> <C-v><END>
-""selet to this line char
-noremap <C-f> <C-v>f
-""open my vimrc
+""select Visual-Block current word
+noremap <C-w> <C-v>iw
+""select Visual-Block to some char pre
+noremap <LEADER>F <C-v>?
+""select Visual-Block to some char post
+noremap <LEADER>f <C-v>/
+""openc my vimrc
 noremap <LEADER>rc :e ~/.vimrc<CR>
 ""copy to system clipboard
 noremap y "+y
@@ -90,6 +102,9 @@ noremap <right> :vertical resize+5<CR>
 
 ""disable the key 's'
 noremap s <nop>
+
+""input real <Tab> in InsertMode
+inoremap<Tab> <C-v><Tab>
 
 ""split window
 nnoremap sh :set nosplitright<CR>:vsplit<CR>
@@ -116,32 +131,32 @@ vnoremap L <END>
 
 ""statusline set
 function! Get_mode()
-    let currentMode = mode()
-    if currentMode ==# "n"
-        return "Normal"
-    elseif currentMode ==# "v"
-        return "Visual"
-    elseif currentMode ==# "V"
-        return "Visual-Line"
-    elseif currentMode ==# ""
-        return "Visual-Block"
-    elseif currentMode ==# "s"
-        return "Select"
-    elseif currentMode ==# "S"
-        return "Select-Line"
-    elseif currentMode ==# ""
-        return "Select-Block"
-    elseif currentMode ==# "i"
-        return "Insert"
-    elseif currentMode ==# "R"
-       return "Replace"
-    elseif currentMode ==# "c"
-        return "Command"
-    elseif currentMode ==# "t"
-        return "Terminal"
-    else
-        return currentMode
-    endif
+	let currentMode = mode()
+	if currentMode ==# "n"
+		return "Normal"
+	elseif currentMode ==# "v"
+		return "Visual"
+	elseif currentMode ==# "V"
+		return "Visual-Line"
+	elseif currentMode ==# ""
+		return "Visual-Block"
+	elseif currentMode ==# "s"
+		return "Select"
+	elseif currentMode ==# "S"
+		return "Select-Line"
+	elseif currentMode ==# ""
+		return "Select-Block"
+	elseif currentMode ==# "i"
+		return "Insert"
+	elseif currentMode ==# "R"
+		return "Replace"
+	elseif currentMode ==# "c"
+		return "Command"
+	elseif currentMode ==# "t"
+		return "Terminal"
+	else
+		return currentMode
+	endif
 endfunction
 
 set statusline=%1*\[%{Get_mode()}]\ %*      "Show currntMode
@@ -175,7 +190,15 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'junegunn/fzf.vim'
 
-Plug 'lervag/vimtex'
+Plug 'Yggdroot/indentLine'
+
+Plug 'godlygeek/tabular'
+
+Plug 'gcmt/wildfire.vim'
+
+Plug 'tpope/vim-surround'
+
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 
@@ -218,17 +241,22 @@ nnoremap <LEADER>e <Cmd>CocCommand explorer<CR>
 ""figlet set
 nnoremap <LEADER>t :r !figlet -f thick ''<left>
 
+""indentLine set
+let g:indentLine_noConcealCursor = 1
+let g:indentLine_color_term = 0
+let g:indentLine_char = '|'
+
 ""coc.nvim set
 set hidden
 set updatetime=100
 set shortmess+=c
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 

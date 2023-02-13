@@ -37,27 +37,27 @@ set previewer "~/.config/lf/preview"
 #}}
 
 cmd bulk-rename ${{
-    old="$(mktemp)"
-    new="$(mktemp)"
-    if [ -n "$fs" ]; then
-        fs="$(basename -a $fs)"
-    else
-        fs="$(ls)"
-    fi
-    printf '%s\n' "$fs" >"$old"
-    printf '%s\n' "$fs" >"$new"
-    $EDITOR "$new"
-    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
-    paste "$old" "$new" | while IFS= read -r names; do
-        src="$(printf '%s' "$names" | cut -f1)"
-        dst="$(printf '%s' "$names" | cut -f2)"
-        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
-            continue
-        fi
-        mv -- "$src" "$dst"
-    done
-    rm -- "$old" "$new"
-    lf -remote "send $id unselect"
+	old="$(mktemp)"
+	new="$(mktemp)"
+	if [ -n "$fs" ]; then
+		fs="$(basename -a $fs)"
+	else
+		fs="$(ls)"
+	fi
+	printf '%s\n' "$fs" >"$old"
+	printf '%s\n' "$fs" >"$new"
+	$EDITOR "$new"
+	[ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+	paste "$old" "$new" | while IFS= read -r names; do
+		src="$(printf '%s' "$names" | cut -f1)"
+		dst="$(printf '%s' "$names" | cut -f2)"
+		if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+			continue
+		fi
+		mv -- "$src" "$dst"
+	done
+	rm -- "$old" "$new"
+	lf -remote "send $id unselect"
 }}
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '/ ')"
@@ -77,95 +77,95 @@ cmd mkfile $$EDITOR "$(echo $*)"
 #}}
 
 cmd yank_path ${{
-set -f
-readlink -f $f | xclip -selection clipboard
+	set -f
+	readlink -f $f | xclip -selection clipboard
 }}
 
 cmd yank_name ${{
-set -f
-basename "$(readlink -f "$f")" | xclip -selection clipboard
+	set -f
+	basename "$(readlink -f "$f")" | xclip -selection clipboard
 }}
 
 cmd yank_dir ${{
-set -f
-pwd -f $f | xclip -selection clipboard
+	set -f
+	pwd -f $f | xclip -selection clipboard
 }}
 
 cmd paste-overwrite %{{
-    mode=$(head -1 ~/.local/share/lf/files)
-    list=$(sed 1d ~/.local/share/lf/files)
-    if [ $mode = 'copy' ]; then
-        cp -r $list .
-    elif [ $mode = 'move' ]; then
-        mv $list .
-    fi
-    lf -remote 'send load'
-    lf -remote 'send clear'
+	mode=$(head -1 ~/.local/share/lf/files)
+	list=$(sed 1d ~/.local/share/lf/files)
+	if [ $mode = 'copy' ]; then
+		cp -r $list .
+	elif [ $mode = 'move' ]; then
+		mv $list .
+	fi
+	lf -remote 'send load'
+	lf -remote 'send clear'
 }}
 
 cmd fzf_jump ${{
-    res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    if [ -d "$res" ] ; then
-        cmd="cd"
-    elif [ -f "$res" ] ; then
-        cmd="select"
-    else
-        exit 0
-    fi
-    lf -remote "send $id $cmd \"$res\""
+	res="$(find . -maxdepth 1 | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+	if [ -d "$res" ] ; then
+		cmd="cd"
+	elif [ -f "$res" ] ; then
+		cmd="select"
+	else
+		exit 0
+	fi
+	lf -remote "send $id $cmd \"$res\""
 }}
 
 cmd fzf_search ${{
-    res="$( \
-        RG_PREFIX="rg --column --line-number --no-heading --color=always \
-            --smart-case "
-        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
-            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
-            --ansi --layout=reverse --header 'Search in files' \
-            | cut -d':' -f1
-    )"
-    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
+	res="$( \
+		RG_PREFIX="rg --column --line-number --no-heading --color=always \
+			--smart-case "
+		FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+			fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+			--ansi --layout=reverse --header 'Search in files' \
+			| cut -d':' -f1
+	)"
+	[ ! -z "$res" ] && lf -remote "send $id select \"$res\""
 }}
 
 cmd open &{{
-    case $(file --mime-type -Lb $f) in
-        text/*) lf -remote "send $id \$$EDITOR \$fx";;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
-    esac
+	case $(file --mime-type -Lb $f) in
+		text/*) lf -remote "send $id \$$EDITOR \$fx";;
+		*) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+	esac
 }}
 
 cmd trash %set -f; mv $fx ~/.trash
 
 cmd extract %{{
-    set -f
-    case $f in
-        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
-        *.tar.gz|*.tgz) tar xzvf $f;;
-        *.tar.xz|*.txz) tar xJvf $f;;
-        *.zip) unzip $f;;
-        *.rar) unrar x $f;;
-        *.7z) 7z x $f;;
-    esac
+	set -f
+	case $f in
+		*.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+		*.tar.gz|*.tgz) tar xzvf $f;;
+		*.tar.xz|*.txz) tar xJvf $f;;
+		*.zip) unzip $f;;
+		*.rar) unrar x $f;;
+		*.7z) 7z x $f;;
+	esac
 }}
 
 cmd tar %{{
-    set -f
-    printf "to tar.gz "
-    read ans
-    mkdir $ans
-    cp -r $fx $ans
-    tar czf $ans.tar.gz $ans
-    rm -rf $ans
+	set -f
+	printf "to tar.gz "
+	read ans
+	mkdir $ans
+	cp -r $fx $ans
+	tar czf $ans.tar.gz $ans
+	rm -rf $ans
 }}
 
 cmd zip %{{
-    set -f
-    printf "to zip "
-    read ans
-    mkdir $ans
-    cp -r $fx $ans
-    zip -r $ans.zip $ans
-    rm -rf $ans
+	set -f
+	printf "to zip "
+	read ans
+	mkdir $ans
+	cp -r $fx $ans
+	zip -r $ans.zip $ans
+	rm -rf $ans
 }}
 
 # Remove some defaults
