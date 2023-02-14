@@ -9,3 +9,5 @@ alias npm_proxy_off="npm config delete proxy && npm config delete https-proxy"
 # Set zshrc resource
 alias sz="source $HOME/.zshrc"
 
+# Set nvim replace vi
+alias vi="nvim"

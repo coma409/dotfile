@@ -32,3 +32,5 @@ source "$HOME/.config/zsh/.zsh_plugins"
 source "$ZSH/oh-my-zsh.sh"
 
 source "$HOME/.config/zsh/.zsh_aliases"
+
+#source "$HOME/.config/zsh/.zsh_fzf"
