@@ -23,7 +23,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 DISABLE_MAGIC_FUNCTIONS=true
 
 # source files
-source "$HOME/.config/zsh/.zprofile"
+source "$HOME/.config/zsh/.zsh_env"
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
@@ -33,4 +33,4 @@ source "$ZSH/oh-my-zsh.sh"
 
 source "$HOME/.config/zsh/.zsh_aliases"
 
-#source "$HOME/.config/zsh/.zsh_fzf"
+source "$HOME/.config/zsh/.zsh_fzf"

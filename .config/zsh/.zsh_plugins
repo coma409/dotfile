@@ -1,0 +1,6 @@
+plugins=(
+	git
+	zsh-syntax-highlighting
+	zsh-completions
+	zsh-autosuggestions
+)
