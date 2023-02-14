@@ -88,13 +88,11 @@ noremap <LEADER>F <C-v>?
 ""select Visual-Block to some char post
 noremap <LEADER>f <C-v>/
 ""openc my vimrc
-noremap <LEADER>rc :e ~/.vimrc<CR>
+noremap <LEADER>o :e ~/.vimrc<CR>
 ""copy to system clipboard
 noremap y "+y
 ""Paste from system clipboard
 noremap p "+p
-""align the line
-noremap <LEADER>a :Tab/
 
 ""resize window
 noremap <up>    : res +5<CR>
@@ -167,6 +165,7 @@ set statusline+=%=%3*\%y%m%r%h%w\ %*      " Show file type and file status
 set statusline+=%4*\%{&ff}\[%{&fenc}]\ %* " Show file encoding type
 set statusline+=%5*\ row:%l/%L,col:%c\ %* " Display the row and column where the cursor is located
 set statusline+=%6*\%3p%%\%*              " Display the proportion of the text in front of the cursor to the total text
+
 hi User1 cterm=none ctermfg=4 ctermbg=0
 hi User2 cterm=none ctermfg=25 ctermbg=0
 hi User3 cterm=none ctermfg=208 ctermbg=0
@@ -220,10 +219,17 @@ colorscheme nightfly
 ""background transparent set
 "hi Normal ctermfg=252 ctermbg=none
 
+""tabular set
+noremap <LEADER>t :Tab/
+
+""vim-expand-region set
+noremap <LEADER>s <Plug>(wildfire-fuel)
+noremap <LEADER>r <Plug>(wildfire-water)
+
 ""MarkdownPreview set
-nnoremap <C-m> :MarkdownPreview<CR>
-nnoremap m :MarkdownPreviewStop<CR>
-"nnoremap <C-p> :MarkdownPreviewToggle<CR>
+"nnoremap <C-p> : MarkdownPreview<CR>
+"nnoremap <C-p>  : MarkdownPreviewStop<CR>
+nnoremap <C-p>    : MarkdownPreviewToggle<CR>
 
 ""set LF as FileManager
 let g:lf_map_keys = 0
@@ -237,11 +243,8 @@ nnoremap <F5> :UndotreeToggle<CR>
 ""TagbarToggle set
 nnoremap <F8> :TagbarToggle<CR>
 
-""coc-explorer set
-nnoremap <LEADER>e <Cmd>CocCommand explorer<CR>
-
 ""figlet set
-nnoremap <LEADER>t :r !figlet -f thick ''<left>
+nnoremap <LEADER><F12> :r !figlet -f thick ''<left>
 
 ""indentLine set
 let g:indentLine_noConcealCursor = 1
