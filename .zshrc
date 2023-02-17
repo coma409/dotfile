@@ -25,10 +25,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Set magic functions off
 DISABLE_MAGIC_FUNCTIONS=true
 
-# source files
+# Source files
 source "$HOME/.config/zsh/.zsh_env"
-
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 source "$HOME/.config/zsh/.zsh_plugins"
 
