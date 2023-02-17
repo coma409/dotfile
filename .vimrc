@@ -1,10 +1,14 @@
-"===================================================="
-" 8b   d8           Yb    dP 888 8b   d8 888b. .d88b "
-" 8YbmdP8 Yb  dP     Yb  dP   8  8YbmdP8 8  .8 8P    "
-" 8  "  8  YbdP       YbdP    8  8  "  8 8wwK' 8b    "
-" 8     8   dP         YP    888 8     8 8  Yb `Y88P "
-"          dP                                        "
-"===================================================="
+"================================================================="
+"                                                                 "
+" ███╗   ███╗██╗   ██╗    ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗ "
+" ████╗ ████║╚██╗ ██╔╝    ██║   ██║██║████╗ ████║██╔══██╗██╔════╝ "
+" ██╔████╔██║ ╚████╔╝     ██║   ██║██║██╔████╔██║██████╔╝██║      "
+" ██║╚██╔╝██║  ╚██╔╝      ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║      "
+" ██║ ╚═╝ ██║   ██║        ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗ "
+" ╚═╝     ╚═╝   ╚═╝         ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ "
+"                                                                 "
+"================================================================="
+
 
 ""not compatible vi
 set nocompatible
@@ -179,6 +183,9 @@ inoremap { {}<ESC>i
 inoremap [ []<ESC>i
 inoremap < <><ESC>i
 
+""figlet set
+nnoremap <LEADER><F12> :r !figlet -f ANSI\ Shadow ''<left>
+
 ""vim-plug set
 call plug#begin('~/.vim/plugged')
 
@@ -242,9 +249,6 @@ nnoremap <F5> :UndotreeToggle<CR>
 
 ""TagbarToggle set
 nnoremap <F8> :TagbarToggle<CR>
-
-""figlet set
-nnoremap <LEADER><F12> :r !figlet -f thick ''<left>
 
 ""indentLine set
 let g:indentLine_noConcealCursor = 1
