@@ -3,7 +3,11 @@ export PATH="$PATH:$HOME/.local/bin"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # Set GOPATH
+export GOROOT="/usr/lib/go"
 export GOPATH="$HOME/go"
+export GOBIN="$HOME/go/bin"
+export PATH="$PATH:$GOROOT/bin:$GOBIN"
+export GO111MODULE=on
 
 # Set EDITOR & TERMINAL
 export EDITOR="nvim"
@@ -15,3 +19,5 @@ export ZSH="/etc/oh-my-zsh"
 # Set cache path for every single user.
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"
 
+# Set rune width to 0
+export RUNEWIDTH_EASTASIAN=0

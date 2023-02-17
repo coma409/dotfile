@@ -22,9 +22,6 @@ fi
 # Set ZSH THEME
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# Set rune width to 0
-export RUNEWIDTH_EASTASIAN=0
-
 # Set magic functions off
 DISABLE_MAGIC_FUNCTIONS=true
 
