@@ -36,6 +36,12 @@ set previewer "~/.config/lf/preview.sh"
 #	lf -remote "send $id set promptfmt \"$fmt\""
 #}}
 
+cmd screenshot %{{
+	printf "Picture name "
+	read ans
+	import "$HOME/Pictures/screenshot/$ans.png"
+}}
+
 cmd bulk-rename ${{
 	old="$(mktemp)"
 	new="$(mktemp)"
@@ -177,6 +183,7 @@ map d
 map r
 map f
 map a
+map s
 
 # Basic Functions
 map yy copy
@@ -197,6 +204,7 @@ map en $nvim "$f"
 map ms mark-save
 map mf push :mkfile<space>
 map md push :mkdir<space>
+map sw screenshot
 map <enter> shell
 map ae extract
 map acg tar
