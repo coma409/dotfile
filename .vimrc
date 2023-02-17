@@ -1,10 +1,10 @@
-"==================================================="
+"===================================================="
 " 8b   d8           Yb    dP 888 8b   d8 888b. .d88b "
 " 8YbmdP8 Yb  dP     Yb  dP   8  8YbmdP8 8  .8 8P    "
 " 8  "  8  YbdP       YbdP    8  8  "  8 8wwK' 8b    "
 " 8     8   dP         YP    888 8     8 8  Yb `Y88P "
 "          dP                                        "
-"==================================================="
+"===================================================="
 
 ""not compatible vi
 set nocompatible
@@ -104,7 +104,7 @@ noremap <right> : vertical resize+5<CR>
 noremap s <nop>
 
 ""input real <Tab> in InsertMode
-inoremap<Tab> <C-v><Tab>
+inoremap <Tab> <C-v><Tab>
 
 ""split window
 nnoremap sh :set nosplitright<CR>:vsplit<CR>

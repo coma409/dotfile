@@ -19,7 +19,7 @@ set ignorecase
 set icons
 set info size
 
-set previewer "~/.config/lf/preview"
+set previewer "~/.config/lf/preview.sh"
 
 # Custom functions
 #cmd on-cd ${{

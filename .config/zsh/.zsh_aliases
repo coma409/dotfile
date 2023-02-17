@@ -11,3 +11,7 @@ alias sz="source $HOME/.zshrc"
 
 # Set vim & nvim
 alias vi="nvim"
+
+# Set cloudreve mount
+alias cmount="sudo mount.davfs "https://to.flickeringarc.cloud/dav" /home/coma/Webdav/cloudreve -o uid=1000,gid=1000"
+alias cumount="sudo umount /home/coma/Webdav/cloudreve"
