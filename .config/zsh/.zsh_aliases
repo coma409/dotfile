@@ -13,5 +13,5 @@ alias sz="source $HOME/.zshrc"
 alias vi="nvim"
 
 # Set cloudreve mount
-alias cmount="mount /home/coma/Webdav/cloudreve"
-alias cumount="umount /home/coma/Webdav/cloudreve"
+alias mnt_c="mount /home/coma/Webdav/cloudreve"
+alias umnt_c="umount /home/coma/Webdav/cloudreve"
