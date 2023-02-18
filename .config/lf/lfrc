@@ -85,19 +85,34 @@ cmd mkfile $$EDITOR "$(echo $*)"
 #	$EDITOR $ans
 #}}
 
-cmd yank_path ${{
-	set -f
-	readlink -f $f | xclip -selection clipboard
-}}
+cmd editor_vim $vim "$f"
 
-cmd yank_name ${{
-	set -f
-	basename "$(readlink -f "$f")" | xclip -selection clipboard
-}}
+cmd editor_nvim $nvim "$f"
 
-cmd yank_dir ${{
-	set -f
-	pwd -f $f | xclip -selection clipboard
+cmd yank_dir $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
+
+cmd yank_path $printf '%s' "$fx" | xclip -i -selection clipboard
+
+cmd yank_name_full $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
+
+cmd yank_name_without_extension ${{
+    echo "$fx" |
+      xargs -r -d '\n' basename -a |
+      awk -e '{
+        for (i=length($0); i > 0; i--) {
+          if (substr($0, i, 1) == ".") {
+            if (i == 1) print $0
+            else print substr($0, 0, i-1)
+
+            break
+          }
+        }
+
+        if (i == 0)
+          print $0
+      }' |
+      if [ -n "$fs" ]; then cat; else tr -d '\n'; fi |
+      xclip -i -selection clipboard
 }}
 
 cmd paste-overwrite %{{
@@ -189,26 +204,27 @@ map a
 map s
 
 # Basic Functions
-map yy copy
-map yp yank_path
-map yn yank_name
-map yd yank_dir
-map dd cut
-map dD delete
-map pp paste
-map po paste-overwrite
-map rf rename
-map ra bulk-rename
-map ff push :setfilter<space>
-map fj :fzf_jump
-map fr :fzf_search
-map ev $vim "$f"
-map en $nvim "$f"
-map ms mark-save
-map mf push :mkfile<space>
-map md push :mkdir<space>
-map sw screenshot
-map <enter> shell
-map ae extract
-map acg tar
-map acz zip
+map yy copy                         " Copy selected items "
+map yp yank_path                    " Copy current item path "
+map ynf yank_name_full              " Copy current item full name "
+map ynb yank_name_without_extension " Copy current item basename "
+map yd yank_dir                     " Copy current item directory "
+map dd cut                          " Cut select items "
+map dD delete                       " Delete select items "
+map pp paste                        " Paste items in current directory "
+map po paste-overwrite              " Paste & overwrite items in current directory "
+map rf rename                       " Rename current item "
+map ra bulk-rename                  " Rename selected items "
+map ff push :setfilter<space>       " Flite items by name, in current directory "
+map fj :fzf_jump                    " Search & Jump to somewhere, in current directory "
+map fr :fzf_search                  " Search archive's content, in current directory "
+map ev editor_vim                   " Edit currnet file with vim "
+map en editor_nvim                  " Edit currnet file with nvim "
+map ms mark-save                    " Save mark "
+map mf push :mkfile<space>          " Make a new file "
+map md push :mkdir<space>           " Make a new directory "
+map sw screenshot                   " Screen Shot "
+map <enter> shell                   " Shell "
+map ae extract                      " Extract selected archives "
+map acg tar                         " Compress items to tar.gz archive "
+map acz zip                         " Compress items to zip archive "
