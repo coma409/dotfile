@@ -209,6 +209,8 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
+Plug 'honza/vim-snippets'
+
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 Plug 'mbbill/undotree'
@@ -308,3 +310,10 @@ nnoremap <silent> gy <Plug>(coc-type-definition)
 nnoremap <silent> gi <Plug>(coc-implementation)
 nnoremap <silent> gr <Plug>(coc-references)
 
+""coc-snippets set
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+xmap <LEADER>x  <Plug>(coc-convert-snippet)
