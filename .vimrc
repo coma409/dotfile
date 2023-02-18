@@ -207,7 +207,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
-Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
@@ -240,8 +240,10 @@ nnoremap <C-p>    : MarkdownPreviewToggle<CR>
 
 ""set LF as FileManager
 let g:lf_map_keys = 0
+
 let g:floaterm_width = 0.6
 let g:floaterm_height = 0.6
+
 nnoremap <LEADER>m :Lf<CR>
 
 ""UndotreeToggle set
@@ -250,22 +252,59 @@ nnoremap <F5> :UndotreeToggle<CR>
 ""TagbarToggle set
 nnoremap <F8> :TagbarToggle<CR>
 
+""coc-explorer set
+nnoremap <LEADER>e <Cmd>CocCommand explorer<CR>
+
 ""indentLine set
 let g:indentLine_noConcealCursor = 1
 let g:indentLine_color_term = 0
 let g:indentLine_char = '|'
 
 ""coc.nvim set
+let g:coc_global_extensions = [
+	\ 'coc-vimlsp',
+	\ 'coc-go',
+	\ 'coc-clangd',
+	\ 'coc-json',
+	\ 'coc-yaml',
+	\ 'coc-html',
+	\ 'coc-css',
+	\ 'coc-syntax',
+	\ 'coc-snippets',
+	\ 'coc-fzf-preview',
+	\ 'coc-explorer']
+
 set hidden
+
 set updatetime=100
+
 set shortmess+=c
+
 inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#pum#visible() ? coc#pum#next(1) :
+	\ CheckBackspace() ? "\<Tab>" :
 	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+	\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+if has('nvim')
+  inoremap <silent><expr> <LEADER>o coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+nnoremap <silent> - <Plug>(coc-diagnostic-prev)
+nnoremap <silent> = <Plug>(coc-diagnostic-next)
+
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
 
