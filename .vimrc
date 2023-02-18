@@ -254,9 +254,6 @@ nnoremap <F5> :UndotreeToggle<CR>
 ""TagbarToggle set
 nnoremap <F8> :TagbarToggle<CR>
 
-""coc-explorer set
-nnoremap <LEADER>e <Cmd>CocCommand explorer<CR>
-
 ""indentLine set
 let g:indentLine_noConcealCursor = 1
 let g:indentLine_color_term = 0
@@ -268,13 +265,11 @@ let g:coc_global_extensions = [
 	\ 'coc-go',
 	\ 'coc-clangd',
 	\ 'coc-json',
-	\ 'coc-yaml',
 	\ 'coc-html',
 	\ 'coc-css',
-	\ 'coc-syntax',
 	\ 'coc-snippets',
-	\ 'coc-fzf-preview',
-	\ 'coc-explorer']
+	\ 'coc-fzf-preview'
+	\ ]
 
 set hidden
 
@@ -296,11 +291,7 @@ function! CheckBackspace() abort
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-if has('nvim')
-  inoremap <silent><expr> <LEADER>o coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> o coc#refresh()
 
 nnoremap <silent> - <Plug>(coc-diagnostic-prev)
 nnoremap <silent> = <Plug>(coc-diagnostic-next)
@@ -311,9 +302,10 @@ nnoremap <silent> gi <Plug>(coc-implementation)
 nnoremap <silent> gr <Plug>(coc-references)
 
 ""coc-snippets set
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-j> <Plug>(coc-snippets-select)
+inoremap <C-l> <Plug>(coc-snippets-expand)
+vnoremap <C-j> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-xmap <LEADER>x  <Plug>(coc-convert-snippet)
+inoremap <C-j> <Plug>(coc-snippets-expand-jump)
+xnoremap <LEADER>x  <Plug>(coc-convert-snippet)
+
