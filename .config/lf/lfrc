@@ -83,18 +83,35 @@ cmd bulk-rename ${{
 
 cmd mkdir %{{
 	printf "Directory Name: "
-	read ans
-	mkdir -p $ans
-	lf -remote "send $id cd \"$ans\""
+	read dir
+	mkdir -p $dir
+	lf -remote "send $id cd \"$dir\""
 }}
 
 #cmd mkfile $$EDITOR "$(echo $*)"
 
 cmd mkfile %{{
 	printf "File Name: "
-	read ans
-	$EDITOR $ans
+	read fname
+	touch $fname
+	lf -remote "send $id select "$fname""
+#	lf -remote "send $id editor_nvim"
+#	lf -remote "send $id editor_vim"
 }}
+
+cmd mkfile_executable %{{
+	set -f
+	printf "Executable(x) Inexecutable(i) -- "
+	read mode
+	if [ "$mode" = "x" ]; then
+		printf "set files to executable"
+		chmod +x $f
+	elif [ "$mode" = "i" ]; then
+		printf "set files to inexecutable"
+		chmod -x $f
+	fi
+}}
+
 
 cmd editor_vim $vim "$f"
 
@@ -186,21 +203,21 @@ cmd extract %{{
 cmd tar %{{
 	set -f
 	printf "to tar.gz "
-	read ans
-	mkdir $ans
-	cp -r $fx $ans
-	tar czf $ans.tar.gz $ans
-	rm -rf $ans
+	read tname
+	mkdir $tname
+	cp -r $fx $tname
+	tar czf $tname.tar.gz $tname
+	rm -rf $tname
 }}
 
 cmd zip %{{
 	set -f
 	printf "to zip "
-	read ans
-	mkdir $ans
-	cp -r $fx $ans
-	zip -r $ans.zip $ans
-	rm -rf $ans
+	read zname
+	mkdir $zname
+	cp -r $fx $zname
+	zip -r $zname.zip $zname
+	rm -rf $zname
 }}
 
 # Remove some default key map
@@ -226,13 +243,14 @@ map pp paste                        # Paste items in current directory
 map po paste-overwrite              # Paste & overwrite items in current directory
 map rf rename                       # Rename current item
 map ra bulk-rename                  # Rename selected items
-map ff :filter          # Flite items by name, in current directory
+map ff :filter                      # Flite items by name, in current directory
 map fj :fzf_jump                    # Search & Jump to somewhere, in current directory
 map fr :fzf_search                  # Search archive's content, in current directory
 map ev editor_vim                   # Edit currnet file with vim
 map en editor_nvim                  # Edit currnet file with nvim
 map ms mark-save                    # Save mark
 map mf mkfile                       # Make a new file
+map me mkfile_executable            # Make a file to executable
 map md mkdir                        # Make a new directory & Set current directory into it
 map sw screenshot                   # Screen Shot
 map <enter> shell                   # Shell
