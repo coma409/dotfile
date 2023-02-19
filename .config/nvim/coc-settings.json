@@ -1,6 +1,6 @@
 {
     "coc.preferences.extensionUpdateCheck": "daily",
-    "coc.preferences.formatOnSave": true,
+    "coc.preferences.formatOnSave": false,
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "vimlsp.indexes.count": 1,
