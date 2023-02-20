@@ -293,6 +293,7 @@ map <enter> shell                   # Shell
 map ax extract                      # Extract selected archives
 map acg tar                         # Compress items to tar.gz archive
 map acz zip                         # Compress items to zip archive
+map gb git_branch
 map gs git_status
 map gl git_log
 map gc git_commit
