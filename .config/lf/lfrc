@@ -293,9 +293,9 @@ map <enter> shell                   # Shell
 map ax extract                      # Extract selected archives
 map acg tar                         # Compress items to tar.gz archive
 map acz zip                         # Compress items to zip archive
-map gb git_branch
-map gs git_status
-map gl git_log
-map gc git_commit
-map gps git_push
-map gpl git_pull
+map gb git_branch                   # git branch
+map gs git_status                   # git status
+map gl git_log                      # git log
+map gc git_commit                   # git commit
+map gps git_push                    # git push
+map gpl git_pull                    # git pull
