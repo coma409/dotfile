@@ -265,6 +265,7 @@ let g:coc_global_extensions = [
 	\ 'coc-go',
 	\ 'coc-clangd',
 	\ 'coc-json',
+	\ 'coc-yaml',
 	\ 'coc-html',
 	\ 'coc-css',
 	\ 'coc-snippets',
