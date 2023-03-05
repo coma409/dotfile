@@ -264,6 +264,7 @@ let g:coc_global_extensions = [
 	\ 'coc-vimlsp',
 	\ 'coc-go',
 	\ 'coc-clangd',
+	\ 'coc-sumneko-lua',
 	\ 'coc-json',
 	\ 'coc-yaml',
 	\ 'coc-html',
