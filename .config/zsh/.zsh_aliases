@@ -16,5 +16,5 @@ alias vi="nvim"
 alias mnt_c="mount /home/coma/Webdav/cloudreve"
 alias umnt_c="umount /home/coma/Webdav/cloudreve"
 
-# Set EC2 ssh
-alias ssh_ec2="ssh -p 26189 root@206.190.238.44"
+# Set BWG ssh
+alias ssh_bwg="ssh -p 26189 root@206.190.238.44"
