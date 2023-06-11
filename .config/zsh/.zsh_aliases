@@ -17,7 +17,7 @@ alias mnt_c="mount /home/coma/Webdav/cloudreve"
 alias umnt_c="umount /home/coma/Webdav/cloudreve"
 
 # Set BWG ssh
-alias ssh_bwg="ssh -p 26189 root@206.190.238.44"
+alias ssh_bwg="ssh -p 22719 root@192.243.120.115"
 
 # Set lf quit current directory
 lfcd () {
