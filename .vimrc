@@ -211,7 +211,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 Plug 'honza/vim-snippets'
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'coma409/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
 Plug 'mbbill/undotree'
 
