@@ -238,7 +238,7 @@ noremap <LEADER>r <Plug>(wildfire-water)
 ""MarkdownPreview set
 "nnoremap <C-p> : MarkdownPreview<CR>
 "nnoremap <C-p>  : MarkdownPreviewStop<CR>
-nnoremap <C-p>    : MarkdownPreviewToggle<CR>
+nnoremap <C-p> : MarkdownPreviewToggle<CR>
 
 ""set LF as FileManager
 let g:lf_map_keys = 0
