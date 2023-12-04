@@ -22,6 +22,8 @@ set ignorecase
 set icons
 set info size
 
+set sixel true
+set preview true
 set previewer "~/.config/lf/preview.sh"
 
 # Custom functions
