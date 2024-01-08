@@ -237,4 +237,4 @@ for_window [class="^.*"] border pixel 0
 new_window pixel 1
 
 # Set the windows inner to 5 pixel
-gaps inner 8
+gaps inner 6
