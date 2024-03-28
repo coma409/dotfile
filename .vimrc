@@ -73,7 +73,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 ""force save
 nnoremap s :w!<CR>
 ""sudo save
-nnoremap <LEADER>s :w !sudo tee %<CR>
+nnoremap <C-s> :w !sudo tee %<CR>
 ""force quit
 nnoremap q :q!<CR>
 ""resource vimrc
