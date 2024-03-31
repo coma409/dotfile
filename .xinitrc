@@ -50,7 +50,7 @@ fi
 
 picom -b
 feh --recursive --bg-fill --randomize ~/Pictures/DesktopBackground
-fcitx5 &
+ibus-daemon -x -d
 
 # exec dwm
 
