@@ -58,7 +58,7 @@ exec --no-startup-id picom -b
 exec --no-startup-id feh --recursive --bg-fill --randomize ~/Pictures/DesktopBackground
 
 # start fcitx
-exec --no-startup-id fcitx5 &
+# exec --no-startup-id fcitx5 &
 # start mpd
 exec --no-startup-id mpd
 
@@ -83,7 +83,7 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec alacritty
 
 # start a chrome
-bindsym $mod+c exec google-chrome-stable
+bindsym $mod+c exec google-chrome-unstable
 
 # kill focused window
 bindsym $mod+Shift+q kill
