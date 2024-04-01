@@ -94,7 +94,8 @@ noremap <LEADER>f <C-v>/
 ""openc my vimrc
 noremap <LEADER>o :e ~/.vimrc<CR>
 ""copy to system clipboard
-noremap y "+y
+""noremap y "+y
+noremap y :%w !xsel -ib
 ""Paste from system clipboard
 noremap p "+p
 
