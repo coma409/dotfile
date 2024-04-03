@@ -32,3 +32,6 @@ lfcd () {
     fi
 }
 alias lf=lfcd
+
+# Set pacman & yay caches
+alias cleancaches="sudo paccache -ruk0; sudo pacman -Rns $(pacman -Qdtq 2>/dev/null); yay -Rns $(yay -Qdtq 2>/dev/null)"
