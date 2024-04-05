@@ -73,7 +73,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 ""force save
 nnoremap s :w!<CR>
 ""sudo save
-nnoremap <C-s> :w !sudo tee %<CR>
+nnoremap <C-s> :SudaWrite<CR>
 ""force quit
 nnoremap q :q!<CR>
 ""resource vimrc
@@ -218,6 +218,8 @@ Plug 'coma409/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'mbbill/undotree'
 
 Plug 'preservim/tagbar'
+
+Plug 'lambdalisue/suda.vim'
 
 call plug#end()
 
