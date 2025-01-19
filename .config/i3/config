@@ -49,7 +49,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # start polybar
-exec --no-startup-id ~/.config/polybar/launch.sh --forest
+exec --no-startup-id /home/coma/.config/polybar/launch.sh --forest
 
 # start picom
 exec --no-startup-id picom -b
