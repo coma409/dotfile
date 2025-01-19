@@ -55,7 +55,7 @@ exec --no-startup-id /home/coma/.config/polybar/launch.sh --forest
 exec --no-startup-id picom -b
 
 # start feh & set wallpaper
-exec --no-startup-id feh --recursive --bg-fill --randomize ~/Pictures/DesktopBackground
+exec --no-startup-id feh --recursive --bg-fill --randomize /home/coma/Pictures/DesktopBackground
 
 # start fcitx
 exec --no-startup-id fcitx5 &
