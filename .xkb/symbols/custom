@@ -1,0 +1,4 @@
+xkb_symbols "swap_esc_caps" {
+    key <ESC>  { [ Caps_Lock ] };
+    key <CAPS> { [ Escape ] };
+};
