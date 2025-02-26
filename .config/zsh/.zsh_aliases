@@ -13,8 +13,8 @@ alias sz="source $HOME/.zshrc"
 alias vi="nvim"
 
 # Set cloudreve mount
-alias mnt_c="mount /home/coma/Webdav/cloudreve"
-alias umnt_c="umount /home/coma/Webdav/cloudreve"
+# alias mnt_c="mount /home/coma/Webdav/cloudreve"
+# alias umnt_c="umount /home/coma/Webdav/cloudreve"
 
 # Set lf quit current directory
 lfcd () {
